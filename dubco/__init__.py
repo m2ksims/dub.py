@@ -1,0 +1,13 @@
+"""
+A simple & easy to use python wrapper built around the dub.co API. 
+
+Copyright (c) 2023 Maksims K.
+License: MIT
+"""
+from dubco.models.tag import Tag
+
+api_key: str = None
+
+__all__ = [
+    "Tag",
+]
