@@ -13,7 +13,9 @@ from ratelimit import limits, RateLimitException
 
 
 class Request:
-    def __init__(self, method: str, endpoint: str, payload: Optional[Dict[str, str]] = None):
+    def __init__(
+        self, method: str, endpoint: str, payload: Optional[Dict[str, str]] = None
+    ):
         self.method = method
         self.endpoint = endpoint
         self.payload = payload
