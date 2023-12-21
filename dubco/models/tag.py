@@ -3,8 +3,13 @@ from dubco.request import Request
 
 
 class Tag:
-    def __init__(self, project_slug: str) -> None:
-        self.slug: str = project_slug
+    def __init__(self, slug: str) -> None:
+        """Initialize a new Tag class.
+        
+        Parameters:
+            slug (str): The slug for the project to retrieve. E.g. for app.dub.co/acme, the projectSlug is 'acme'.
+        """
+        self.slug: str = slug
 
     def create(self, name: str) -> Optional[Dict]:
         """Create a new tag for the authenticated project.
