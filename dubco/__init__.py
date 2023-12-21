@@ -6,10 +6,12 @@ License: MIT
 """
 from dubco.models.tag import Tag
 from dubco.models.project import Project
+from dubco.models.link import Link
 
 api_key: str = None
 
 __all__ = [
     "Tag",
     "Project",
+    "Link",
 ]
