@@ -14,11 +14,16 @@ from ratelimit import limits, RateLimitException
 
 class Request:
     def __init__(
-        self, method: str, endpoint: str, payload: Optional[Dict[str, str]] = None
+        self,
+        method: str,
+        endpoint: str,
+        payload: Optional[Dict[str, str]] = None,
+        params: Optional[Dict[str, str]] = None,
     ):
         self.method = method
         self.endpoint = endpoint
         self.payload = payload
+        self.params = params
         self.base_url: str = "https://api.dub.co/"
 
     def execute(self) -> Dict:
@@ -58,11 +63,12 @@ class Request:
         headers = self.__headers
         method = self.method
         payload = self.payload
+        params = self.params
         url = self.base_url + self.endpoint
 
         try:
             return requests.request(
-                method=method, url=url, headers=headers, json=payload
+                method=method, url=url, headers=headers, json=payload, params=params
             )
         except requests.HTTPError as e:
             raise e
