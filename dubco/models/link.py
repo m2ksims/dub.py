@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from dubco.request import Request
 
 
@@ -103,6 +103,21 @@ class Link:
 
     # TODO:
     # PUT (Edit a Link) -> Edit a link for the authenticated project.
-    # DEL (Delete a Link) -> Delete a link for the authenticated project
     # GET (Retrieve a list of links) -> Retrieve a list of links for the authenticated project. The list will be paginated and the provided query parameters allow filtering the returned links.
     # POST (Bulk create links) -> Bulk create up to 100 links for the authenticated project.
+
+    def delete(self, link_id: str) -> Optional[Dict]:
+        """Delete a link for the authenticated project.
+
+        Parameters:
+            link_id (str): The id of the link to delete.
+
+        Returns:
+            Optional[Dict]: A dictionary representing the JSON response, if available.
+        """
+        params = {"projectSlug": self.slug}
+        response = Request(
+            method="DELETE", endpoint=f"links/{link_id}", params=params
+        ).execute()
+
+        return response
