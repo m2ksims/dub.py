@@ -30,7 +30,7 @@ class Link:
         public_stats: Optional[bool] = False,
         tag_id: Optional[str] = None,
         comments: Optional[str] = None,
-    ) -> Optional[Dict]:
+    ) -> Dict:
         """Create a new link for the authenticated project.
 
         Parameters:
@@ -54,7 +54,7 @@ class Link:
             comments (Optional[str]): The comments for the short link.
 
         Returns:
-            Optional[Dict]: A dictionary representing the JSON response, if available.
+            Dict: A dictionary representing the JSON response, if available.
         """
         params = {"projectSlug": self.slug}
         payload = {
@@ -78,12 +78,12 @@ class Link:
         }
 
         response = Request(
-            method="POST", endpoint=f"links", payload=payload, params=params
+            method="POST", endpoint="links", payload=payload, params=params
         ).execute()
 
         return response
 
-    def get(self, domain: str, key: str) -> Optional[Dict]:
+    def get(self, domain: str, key: str) -> Dict:
         """Retrieve the info for a link from their domain and key.
 
         Parameters:
@@ -91,12 +91,12 @@ class Link:
             key (str): The key of the link to retrieve. E.g. for dub.sh/github, the key is 'github'.
 
         Returns:
-            Optional[Dict]: A dictionary representing the JSON response, if available.
+            Dict: A dictionary representing the JSON response, if available.
         """
         params = {"projectSlug": self.slug, "domain": domain, "key": key}
 
         response = Request(
-            method="GET", endpoint=f"links/info", params=params
+            method="GET", endpoint="links/info", params=params
         ).execute()
 
         return response
@@ -106,14 +106,14 @@ class Link:
     # GET (Retrieve a list of links) -> Retrieve a list of links for the authenticated project. The list will be paginated and the provided query parameters allow filtering the returned links.
     # POST (Bulk create links) -> Bulk create up to 100 links for the authenticated project.
 
-    def delete(self, link_id: str) -> Optional[Dict]:
+    def delete(self, link_id: str) -> Dict:
         """Delete a link for the authenticated project.
 
         Parameters:
             link_id (str): The id of the link to delete.
 
         Returns:
-            Optional[Dict]: A dictionary representing the JSON response, if available.
+            Dict: A dictionary representing the JSON response, if available.
         """
         params = {"projectSlug": self.slug}
         response = Request(
