@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional
-from dubco.request import Request
+from dub.request import Request
 
 
 class Link:

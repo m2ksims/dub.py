@@ -1,6 +1,6 @@
 import requests
-import dubco
-from dubco.errors import (
+import dub
+from dub.errors import (
     AuthorizationError,
     NotFoundError,
     RateLimitExceededError,
@@ -75,6 +75,6 @@ class Request:
 
     @property
     def __headers(self) -> Dict:
-        if not dubco.api_key:
+        if not dub.api_key:
             raise ValueError("You must provide an API key.")
-        return {"Authorization": f"Bearer {dubco.api_key}"}
+        return {"Authorization": f"Bearer {dub.api_key}"}

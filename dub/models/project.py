@@ -1,5 +1,5 @@
 from typing import Dict, Optional
-from dubco.request import Request
+from dub.request import Request
 
 
 class Project:

@@ -1,5 +1,5 @@
 class DubException(BaseException):
-    """Base exception for all exceptions raised by the `dubco` library."""
+    """Base exception for all exceptions raised by the `dub` library."""
 
 
 class AuthorizationError(DubException):
