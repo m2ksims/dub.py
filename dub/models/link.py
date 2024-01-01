@@ -95,16 +95,9 @@ class Link:
         """
         params = {"projectSlug": self.slug, "domain": domain, "key": key}
 
-        response = Request(
-            method="GET", endpoint="links/info", params=params
-        ).execute()
+        response = Request(method="GET", endpoint="links/info", params=params).execute()
 
         return response
-
-    # TODO:
-    # PUT (Edit a Link) -> Edit a link for the authenticated project.
-    # GET (Retrieve a list of links) -> Retrieve a list of links for the authenticated project. The list will be paginated and the provided query parameters allow filtering the returned links.
-    # POST (Bulk create links) -> Bulk create up to 100 links for the authenticated project.
 
     def delete(self, link_id: str) -> Dict:
         """Delete a link for the authenticated project.
@@ -118,6 +111,81 @@ class Link:
         params = {"projectSlug": self.slug}
         response = Request(
             method="DELETE", endpoint=f"links/{link_id}", params=params
+        ).execute()
+
+        return response
+
+    def edit(self, link_id: str, **payload) -> Dict:
+        """Edit a link for the authenticated project.
+
+        Parameters:
+            link_id (str): The id of the link to edit.
+            **payload (dict): A dictionary containing properties to edit in the link - the same properties as creating a link.
+
+        Returns:
+            Dict: A dictionary representing the JSON response, if available.
+        """
+        params = {"projectSlug": self.slug}
+        response = Request(
+            method="PUT", endpoint=f"links/{link_id}", params=params, payload=payload
+        ).execute()
+
+        return response
+
+    def get_links(
+        self,
+        page: Optional[int] = 1,
+        domain: Optional[str] = None,
+        tag_id: Optional[str] = None,
+        search: Optional[str] = None,
+        sort: Optional[str] = "createdAt",
+        user_id: Optional[str] = None,
+        show_archived: Optional[bool] = False,
+    ) -> List[Dict]:
+        """Retrieve a list of links for the authenticated project.
+
+        Parameters:
+            page (Optional[int]): The page number for pagination (each page contains 100 links).
+            domain (Optional[str]): The domain to filter the links by. E.g. 'ac.me'. If not provided, all links for the project will be returned.
+            tag_id (Optional[str]): The tag ID to filter the links by.
+            search (Optional[str]): The search term to filter the links by. The search term will be matched against the short link slug and the destination url.
+            sort (Optional[str]): The field to sort the links by. The default is `createdAt`, and sort order is always descending. Available options: `createdAt`, `clicks`, `lastClicked`.
+            user_id (Optional[str]): The user ID to filter the links by.
+            show_archived (Optional[bool]): Whether to include archived links in the response.
+
+        Returns:
+            List[Dict]: A list of dictionaries representing the JSON response, if available.
+        """
+        params = {
+            "projectSlug": self.slug,
+            "domain": domain,
+            "tagId": tag_id,
+            "search": search,
+            "sort": sort,
+            "page": page,
+            "userId": user_id,
+            "showArchived": show_archived,
+        }
+
+        response = Request(method="GET", endpoint="links", params=params).execute()
+
+        return response
+
+    def bulk_create(self, payload: List[Dict]) -> List[Dict]:
+        """Bulk create up to 100 links for the authenticated project.
+
+        Find more information about this method here: https://dub.co/docs/api-reference/endpoint/bulk-create-links
+
+        Parameters:
+            payload (List[Dict]): A list of dictionaries containing link information.
+
+        Returns:
+            List[Dict]: A list of dictionaries representing the JSON response, if available.
+        """
+        params = {"projectSlug": self.slug}
+
+        response = Request(
+            method="POST", endpoint="links/bulk", params=params, payload=payload
         ).execute()
 
         return response
