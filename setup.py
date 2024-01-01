@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r", encoding="utf-8", errors="ignore") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
@@ -11,7 +11,7 @@ setup(
     description="🔗 A python wrapper built around the dub.co API. ",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/dub.py",
+    url="https://github.com/m2ksims/dub.py",
     packages=find_packages(),
     install_requires=["requests", "ratelimit"],
     classifiers=[
