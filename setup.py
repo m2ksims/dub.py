@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="dub.py",
-    version="v1.0.0",
+    version="v1.0.3",
     author="Maksims K.",
     author_email="contact@maksims.co.uk",
     description="🔗 A python wrapper built around the dub.co API. ",
